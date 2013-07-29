@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/main/java/org/okj/commons/event/Event.java=UTF-8
+encoding//src/main/java/org/okj/commons/event/EventCode.java=UTF-8
+encoding//src/main/java/org/okj/commons/event/EventPublisher.java=UTF-8
+encoding//src/main/java/org/okj/commons/event/SimpleEventPublisher.java=UTF-8
+encoding//src/main/java/org/okj/commons/task/Task.java=UTF-8
+encoding//src/main/java/org/okj/commons/task/TaskExecutor.java=UTF-8
+encoding//src/main/java/org/okj/commons/task/TaskExecutorImpl.java=UTF-8
+encoding/<project>=UTF-8
