@@ -19,7 +19,6 @@ import com.google.common.collect.Queues;
  * two threads operate the same resource at the same time.
  * 
  * 
- * @author toy
  * 
  */
 public class ResourceUpdateThreadPool extends SimpleThreadPool<ResourceUpdateTask> {

@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.collect.MapMaker;
 
 /**
- * @author toy
  * 
  */
 public class SimpleMemoryResourceLock implements ResourceLock {

@@ -10,7 +10,6 @@ import org.apache.log4j.PatternLayout;
 /**
  * Use this one to intercept the output of log4j in unit test case.
  * 
- * @author toy
  * 
  */
 public class Log4jCapture {

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:jms="http://www.springframework.org/schema/jms" xsi:schemaLocation=" 
+
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+
+	
+	<!-- ==================================================================== -->
+	<!-- JMX                                                                  -->
+	<!-- ==================================================================== -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true"/>
+	</bean>    
+	
+	<bean id="jmxAttributeSource" class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+    
+      <bean id="annotationsAssembler" class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">  
+       	<property name="attributeSource" ref="jmxAttributeSource"/>  
+   	</bean>  
+   	
+   	<bean id="namingStrategy" class="org.springframework.jmx.export.naming.MetadataNamingStrategy">  
+        <property name="attributeSource" ref="jmxAttributeSource"/>  
+   	</bean>
+
+      <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+	    <property name="server" ref="mbeanServer"/>
+	    <property name="assembler" ref="annotationsAssembler"/>
+	    <property name="namingStrategy" ref="namingStrategy"/>
+	    <property name="beans">
+			<map>
+				<entry key="bean:name=statistics" value-ref="statisticsBean" />
+			</map>
+		</property>
+      </bean>
+      
+      <bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+		<property name="port" value="1000" />
+	 </bean>
+	 
+	 <bean id="statisticsBean" class="org.hibernate.jmx.StatisticsService">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean>
+	 
+	 <bean id="clientConnector" class="org.springframework.jmx.support.ConnectorServerFactoryBean">
+		<property name="objectName" value="connector:name=rmi" />
+		<property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:1000/myconnector" />
+	</bean>
+
+</beans>

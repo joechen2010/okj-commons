@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author toy
  * 
  */
 public interface JsonMapper {

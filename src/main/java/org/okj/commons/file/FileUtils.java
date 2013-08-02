@@ -6,7 +6,6 @@ package org.okj.commons.file;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author toy
  * 
  */
 public class FileUtils {

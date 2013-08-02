@@ -4,7 +4,6 @@
 package org.okj.commons.web.jackson;
 
 /**
- * @author toy
  * 
  */
 public class JsonMapperFactory {

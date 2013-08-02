@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.okj.commons.web.HttpClientUtils;
+import org.okj.commons.http.HttpClientUtils;
 import org.okj.commons.web.jackson.JsonMapper;
 import org.okj.commons.web.jackson.JsonMapperFactory;
 

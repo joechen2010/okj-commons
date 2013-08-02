@@ -21,7 +21,6 @@ import org.okj.commons.logger.LogUtils;
 import org.springframework.stereotype.Component;
 
 
-@Component
 public class SimpleEventPublisher implements EventPublisher {
     /* logger */
     private static final Logger     LOGGER    = Logger.getLogger(EventPublisher.class);

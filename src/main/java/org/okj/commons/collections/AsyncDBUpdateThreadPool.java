@@ -14,7 +14,6 @@ import com.google.common.cache.CacheBuilder;
  * duplicated task with the specified the resource id. only run the latest task with same resource id in queue.
  * 
  * 
- * @author toy
  * 
  */
 public class AsyncDBUpdateThreadPool extends SimpleThreadPool<String> {

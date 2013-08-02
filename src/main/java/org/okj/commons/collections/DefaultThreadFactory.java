@@ -6,7 +6,6 @@ package org.okj.commons.collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author toy
  * 
  */
 public class DefaultThreadFactory implements java.util.concurrent.ThreadFactory {

@@ -9,9 +9,13 @@
 
 	<!-- Version Setting -->
 	<properties>
-		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring.version>3.2.0.RELEASE</spring.version>
 		<mybatis.version>3.0.6</mybatis.version>
 		<mybatis-spring.version>1.0.2</mybatis-spring.version>
+		<hibernateVersion>3.5.6-Final</hibernateVersion>
+		<atomikos.version>3.8.0</atomikos.version>
+		<ojdbc6.version>11.2.0.1.0</ojdbc6.version>
+    	<jtds.version>1.2.4</jtds.version>
 		<jersey.version>1.1.5.1</jersey.version>
 		<jetty.version>8.1.8.v20121106</jetty.version>
 		<jsp.version>2.1.v20100127</jsp.version>
@@ -23,6 +27,13 @@
 		<powermock.version>1.4.12</powermock.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<test.groups>All</test.groups>
+		<cxf.version>2.4.3</cxf.version> 
+		<spring.ws.version>2.1.3.RELEASE</spring.ws.version> 
+		<spring.mongo.version>1.0.3.RELEASE</spring.mongo.version> 
+		<javamelody.version>1.35.0</javamelody.version> 
+		<spring.datahadoop.version>1.0.0.RELEASE</spring.datahadoop.version> 
+		<hadoop.version>1.0.3</hadoop.version> 
+		<logback.version>1.0.6</logback.version> 
 	</properties>
 
 	<!-- Release Setting -->
@@ -53,22 +64,74 @@
 			<name>mvnrepository</name>
 			<url>http://mvnrepository.com/artifact</url>
 		</repository>
-	    
+	    <!-- 
 	    <repository>
 			<id>lakala-repo</id>
 			<name>Lakala nexus</name>
 			<url>http://mvn.storevm.org:8081/mvn/content/groups/public</url>
 		</repository>
-	    
+	     -->
 		<repository>
 			<id>repository.springframework.milestone</id>
 			<name>Spring Framework Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
+		
+		<repository>
+            <id>spring-milestone</id>
+            <url>http://repo.springsource.org/libs-milestone</url>
+        </repository>
+        
 	</repositories>
 
 	<!-- Dependency Setting -->
 		<dependencies>
+		    
+		    <!-- Spring Data Apache Hadoop -->
+			<dependency>
+			    <groupId>org.springframework.data</groupId>
+			    <artifactId>spring-data-hadoop</artifactId>
+			    <version>${spring.datahadoop.version}</version>
+			</dependency>
+			<!-- Apache Hadoop Core -->
+			<dependency>
+			    <groupId>org.apache.hadoop</groupId>
+			    <artifactId>hadoop-core</artifactId>
+			    <version>${hadoop.version}</version>
+			</dependency>
+			
+			<dependency>
+	            <groupId>org.apache.hadoop</groupId>
+	            <artifactId>hadoop-examples</artifactId>
+	            <version>${hadoop.version}</version>
+	            <scope>compile</scope>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.codehaus.groovy</groupId>
+	            <artifactId>groovy</artifactId>
+	            <version>1.8.5</version>
+	            <scope>runtime</scope>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>ch.qos.logback</groupId>
+	            <artifactId>logback-classic</artifactId>
+	            <version>${logback.version}</version>
+	        </dependency>
+			    
+		    <dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-mongodb</artifactId>
+				<version>${spring.mongo.version}</version>
+			</dependency>
+		    
+		    <dependency>
+				<groupId>org.springframework.ws</groupId>
+				<artifactId>spring-ws-core</artifactId>
+				<version>${spring.ws.version}</version>
+			</dependency>
+		    
 			<!-- spring core begin-->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -153,11 +216,6 @@
 				<version>1.4</version>
 			</dependency>
 
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>5.1.13</version>
-			</dependency>
 			
 			<dependency>
 				<groupId>org.springframework.data</groupId>
@@ -598,7 +656,224 @@
 				<scope>system</scope>
 				<systemPath>${java.home}/../lib/tools.jar</systemPath>
 			</dependency>
+			
+			<!-- CXF  -->
+			
+			<dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-rt-frontend-jaxws</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-rt-transports-http</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <!-- Jetty is needed if you're are not using the CXFServlet -->  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-rt-transports-http-jetty</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-tools-common</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-tools-java2ws</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-tools-validator</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-tools-wsdlto-core</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-tools-wsdlto-databinding-jaxb</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency>  
+	        
+	        <dependency>  
+	            <groupId>org.apache.cxf</groupId>  
+	            <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>  
+	            <version>${cxf.version}</version>  
+	        </dependency> 
+	        
+	        <dependency>
+				<groupId>net.bull.javamelody</groupId>
+				<artifactId>javamelody-core</artifactId>
+				<version>${javamelody.version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>commons-jexl</groupId>
+				<artifactId>commons-jexl</artifactId>
+				<version>1.1</version>
+			</dependency>
 
+			<dependency>
+				<groupId>org.perf4j</groupId>
+				<artifactId>perf4j</artifactId>
+				<version>0.9.16</version>
+				<scope>compile</scope>
+			</dependency>
+			
+			<!-- atomikos -->
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>atomikos-util</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>transactions</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>transactions-api</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>transactions-jta</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>transactions-jdbc</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>transactions-jms</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atomikos</groupId>
+				<artifactId>transactions-hibernate3</artifactId>
+				<version>${atomikos.version}</version>
+			</dependency>
+			
+			<!-- Hibernate -->
+			
+			<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-hibernate3</artifactId>
+					<version>[2.0.8,)</version>
+					<scope>compile</scope>
+					<exclusions>
+						<exclusion>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-jmx</artifactId>
+					<version>3.3.2.GA</version>
+					<scope>compile</scope>
+				</dependency>
+				
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-core</artifactId>
+					<version>${hibernateVersion}</version>
+					<scope>compile</scope>
+				</dependency>
+			 	
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-oscache</artifactId>
+					<version>${hibernateVersion}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-annotations</artifactId>
+					<version>${hibernateVersion}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-commons-annotations</artifactId>
+					<version>3.2.0.Final</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-entitymanager</artifactId>
+					<version>${hibernateVersion}</version>
+					<scope>compile</scope>
+				</dependency>
+			 
+				<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-annotations</artifactId>
+				<version>${hibernateVersion}</version>
+			</dependency>   
+			
+		    <!-- JDBC -->
+		    <dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.13</version>
+			</dependency>
+			
+			<dependency>
+	            <groupId>c3p0</groupId>
+	            <artifactId>c3p0</artifactId>
+	            <version>0.9.1.2</version>
+	            <scope>compile</scope>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>commons-dbcp</groupId>
+	            <artifactId>commons-dbcp</artifactId>
+	            <version>1.2.2</version>
+	        </dependency>
+			<dependency>
+			  <groupId>com.jolbox</groupId>
+			  <artifactId>bonecp</artifactId>
+			  <version>0.8.0-rc1</version>		  		  
+			</dependency>
+		
+		    <dependency>
+		      <groupId>net.sourceforge.jtds</groupId>
+		      <artifactId>jtds</artifactId>
+		      <version>${jtds.version}</version>
+		    </dependency>
+			
+			<!-- jms -->
+			
+			<dependency>
+	            <groupId>opensymphony</groupId>
+	            <artifactId>oscache</artifactId>
+	            <version>2.4</version>
+	            <exclusions>
+	                <exclusion>
+	                    <groupId>javax.jms</groupId>
+	                    <artifactId>jms</artifactId>
+	                </exclusion>
+	            </exclusions>
+	        </dependency>
+	        
+			<dependency>
+				<groupId>org.kohsuke</groupId>
+				<artifactId>asm4</artifactId>
+				<version>4.0</version>
+			</dependency>
+			
 		</dependencies>
 
 	<build>
@@ -614,6 +889,20 @@
 						<source>1.7</source>
 						<target>1.7</target>
 					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.1.2</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 
 				<!-- Test plugin -->
@@ -710,10 +999,22 @@
 				</plugin>
 
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.1</version>
-				</plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+				  <execution>
+					<id>copy-dependencies</id>
+					<phase>compile</phase>
+					<goals>
+					  <goal>copy-dependencies</goal>
+					</goals>
+					<configuration>
+					   
+					</configuration>
+				  </execution>
+				</executions>
+			  </plugin>
 
 				<!-- assembly plugin -->
 				<plugin>
@@ -736,11 +1037,6 @@
 							</manifest>
 						</archive>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>2.1.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

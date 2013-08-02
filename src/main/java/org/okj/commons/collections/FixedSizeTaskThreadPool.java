@@ -17,7 +17,6 @@ import org.okj.commons.web.jackson.JsonMapperFactory;
  * Use this one to do a async update , it can control the concurrent work thread to database.
  * 
  * 
- * @author toy
  * 
  */
 public class FixedSizeTaskThreadPool {

@@ -12,7 +12,6 @@
  */
 package org.okj.commons.task;
 
-import org.springframework.stereotype.Component;
 
 
 /**
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Component;
  * 
  *  
  */
-@Component
 public class Task implements Runnable {
   
     /* 任务执行的CRON表达式 */

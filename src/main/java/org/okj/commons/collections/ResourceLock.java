@@ -4,7 +4,6 @@
 package org.okj.commons.collections;
 
 /**
- * @author toy
  * 
  */
 public interface ResourceLock {

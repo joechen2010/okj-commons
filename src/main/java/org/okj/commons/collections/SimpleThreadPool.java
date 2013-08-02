@@ -23,7 +23,6 @@ import com.google.common.collect.Lists;
  * two threads operate the same resource at the same time.
  * 
  * 
- * @author toy
  * 
  */
 public abstract class SimpleThreadPool<T> implements ThreadPoolService {

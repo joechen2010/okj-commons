@@ -58,7 +58,7 @@ import com.google.common.collect.Lists;
  * 
  * </pre>
  * 
- * @author ezhengx
+ * @author 
  * 
  */
 public class SimpleWorkbook {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:hdp="http://www.springframework.org/schema/hadoop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+                        "
+	default-autowire="byName" default-lazy-init="true">
+	
+    <context:property-placeholder location="hadoop.properties" />
+    
+    <hdp:configuration>
+	    fs.default.name=${fs.default.name}
+	    mapred.job.tracker=${mapred.job.tracker}
+	</hdp:configuration>
+	 
+    <hdp:job id="wordCountJob"
+            input-path="${input.path}"
+            output-path="${output.path}"
+            jar-by-class="org.okj.commons.db.hadoop.HadoopTest"
+            mapper="org.okj.commons.db.hadoop.WordMapper"
+            reducer="org.okj.commons.db.hadoop.WordReducer"/>
+    
+    <script id="setupScript" location="copy-files.groovy">
+		<property name="localSourceFile" value="${localSourceFile}"/>
+		<property name="inputDir" value="${input.path}"/>
+		<property name="outputDir" value="${output.path}"/>
+	</script>
+    
+    <hdp:job-runner id="wordCountJobRunner" job-ref="wordCountJob" run-at-startup="true"/>
+    
+	</beans>
+ 
+
+

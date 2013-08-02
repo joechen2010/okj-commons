@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        "
+
+	default-autowire="byName" default-lazy-init="true">
+
+
+	<bean id="checkerAdvisor" class="net.bull.javamelody.MonitoringSpringAdvisor">
+		<property name="pointcut">
+			<bean class="net.bull.javamelody.MonitoredWithInterfacePointcut">
+				<property name="interfaceName"
+					value="org.okj.commons.monitor.BaseMonitoredWithInterfacePointcut" />
+			</bean>
+		</property>
+	</bean>
+
+	<aop:aspectj-autoproxy />
+	<!-- Declare the TimingAspect that we want to weave into the other beans 
+		defined in this config file. -->
+	<bean id="timingAspect" class="org.perf4j.log4j.aop.TimingAspect" />
+</beans>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	修改说明: 1. sessionFactory bean的修改 * packagesToScan属性: 修改包名以确定要加载的@Entity
+	class * hibernateProperties属性: 根据你使用的数据库修改的hibernate.dialect 2.
+	修改context:component-scan节点以确定要加载的dao类
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	   default-autowire="byName" default-lazy-init="false">
+	
+ <!--  
+	<bean id="lobHandler"
+		class="org.springframework.jdbc.support.lob.OracleLobHandler">
+		<property name="nativeJdbcExtractor"> <bean
+		class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"></bean>
+		</property> </bean>
+ -->  	 
+	
+	
+	 
+	<bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" destroy-method="destroy">
+		<property name="mappingLocations">
+			<list>
+ 				<value>classpath*:/HibernateMapper/*.hbm.xml</value>
+ 				
+ 			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>      
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.connection.isolation">3</prop>				
+				<prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+                 <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                 <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+                 <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                 <prop key="hibernate.validator.autoregister_listeners">${hibernate.validator.autoregister_listeners}</prop>
+                 <prop key="hibernate.validator.apply_to_ddl">${hibernate.validator.apply_to_ddl}</prop>
+                 <prop key="javax.persistence.validation.mode">${javax.persistence.validation.mode}</prop>         
+                 <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+                 <prop key="hibernate.cache.use_minimal_puts">${hibernate.cache.use_minimal_puts}</prop>
+                 <prop key="hibernate.cache.hazelcast.use_native_client">${hibernate.cache.hazelcast.use_native_client}</prop>
+                 <prop key="hibernate.cache.hazelcast.native_client_address">${hibernate.cache.hazelcast.native_client_address}</prop>
+                 <prop key="hibernate.cache.hazelcast.native_client_group">${hibernate.cache.hazelcast.native_client_group}</prop>
+                 <prop key="hibernate.cache.hazelcast.native_client_password">${hibernate.cache.hazelcast.native_client_password}</prop>				
+				<prop key="hibernate.cache.provider_class">org.okj.commons.dao.hibernate.oscache.OSCacheProvider</prop>
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.factory_class">com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory</prop>
+	            <prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>	
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop> 
+ 			</props>      
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+	
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="hibernateSessionFactory"/>
+	</bean>
+	
+	
+	<!--Hibernate TransactionManager-->
+	<bean id="hibernateTransactionManager"
+		  class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean>
+	
+	<bean id="hibernateTransactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager">
+			<ref bean="hibernateTransactionManager"/>
+		</property>
+	</bean>
+
+</beans>
