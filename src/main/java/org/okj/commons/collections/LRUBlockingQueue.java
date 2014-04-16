@@ -6,7 +6,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * This queue have a capacity limitation, when the size of content is reached the cell, it will abandon the oldest data.
  * 
- * @author ehanrli
  * 
  * @param <E>
  */

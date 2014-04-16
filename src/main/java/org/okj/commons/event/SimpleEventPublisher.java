@@ -18,7 +18,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.okj.commons.logger.LogUtils;
-import org.springframework.stereotype.Component;
 
 
 public class SimpleEventPublisher implements EventPublisher {

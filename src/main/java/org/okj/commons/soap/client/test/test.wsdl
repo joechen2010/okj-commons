@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch0="http://lhsgroup.com/lhsws/money" xmlns:sch1="http://lhsgroup.com/lhsws/svlany"
+	xmlns:sch2="http://ericsson.com/services/ws_CIL_5/sessionchange"
+	xmlns:sch3="http://ericsson.com/services/ws_CIL_5/billdocumentread"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ericsson.com/services/ws_CIL_5"
+	targetNamespace="http://ericsson.com/services/ws_CIL_5">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:lhsws="http://lhsgroup.com/lhsws/money" attributeFormDefault="unqualified"
+			elementFormDefault="qualified" targetNamespace="http://lhsgroup.com/lhsws/money">
+			<xs:complexType name="money">
+				<xs:sequence>
+					<xs:element name="amount" type="xs:double" />
+					<xs:element name="currency" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:lhsws="http://lhsgroup.com/lhsws/svlany" attributeFormDefault="unqualified"
+			elementFormDefault="qualified" targetNamespace="http://lhsgroup.com/lhsws/svlany">
+			<xs:complexType name="svlany">
+				<xs:sequence>
+					<xs:element name="content" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:wsi="http://ericsson.com/services/ws_CIL_5/sessionchange"
+			attributeFormDefault="unqualified" elementFormDefault="qualified"
+			targetNamespace="http://ericsson.com/services/ws_CIL_5/sessionchange">
+			<xs:complexType name="valuesListpartRequest">
+				<xs:all>
+					<xs:element name="key" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p> Name of the value that shall be changed. See release dependent documentation for supported keys</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="value" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p>New value for a named value.</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="valuesRequest">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="item"
+						type="wsi:valuesListpartRequest" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="sessionChangeRequest">
+				<xs:all>
+					<xs:annotation>
+						<xs:documentation>
+						<![CDATA[<p>
+						
+						</p>]]>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:element minOccurs="0" name="values" type="wsi:valuesRequest" />
+				</xs:all>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:sessionchange="http://ericsson.com/services/ws_CIL_5/sessionchange"
+			xmlns:wsi="http://ericsson.com/services/ws_CIL_5/billdocumentread"
+			attributeFormDefault="unqualified" elementFormDefault="qualified"
+			targetNamespace="http://ericsson.com/services/ws_CIL_5/billdocumentread">
+			<xs:import namespace="http://ericsson.com/services/ws_CIL_5/sessionchange" />
+			<xs:element name="billdocumentReadRequest" type="wsi:billdocumentReadRequest" />
+			<xs:element name="billdocumentReadResponse" type="wsi:billdocumentReadResponse" />
+			<xs:complexType name="resultListListpartResponse">
+				<xs:all>
+					<xs:element minOccurs="0" name="documentRefNum" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p>A unique identification for the document</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="document" type="xs:base64Binary">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p> The document image.</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="documentFormat" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p>Document image format, e.g. HTM, HTML, PDF etc. </p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="documentDir" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p> The relative path of the document </p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="documentFileName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+													<![CDATA[<p>The file name of the document </p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="resultListResponse">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="item"
+						type="wsi:resultListListpartResponse" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="billdocumentReadResponse">
+				<xs:all>
+					<xs:element minOccurs="0" name="resultList" type="wsi:resultListResponse" />
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="inputAttributes">
+				<xs:all>
+					<xs:annotation>
+						<xs:documentation>
+						<![CDATA[<p>Identifies a contract with the public or private key. </p>]]>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:element minOccurs="0" name="documentRefNum" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p>A unique identification for the document</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="billingRequestNumber"
+						type="xs:long">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p>
+							A unique identification for the request. Must be specified
+							together with REQUEST_TYPE.
+							</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="requestType" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p> Specifies a billing ('B') or a CDS ('C') request.
+							Must be specified if request number is specified.
+							</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="csId" type="xs:long">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p>Customers private key</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="csIdPub" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p>Customers public key</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="coId" type="xs:long">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p>Contract's private key</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="coIdPub" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p>Contract's public key</p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="documentRefOnly" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>
+							<![CDATA[<p> If true, only the document reference should be returned as relative path
+							otherwise the document content is passed back </p>]]>
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="billdocumentReadRequest">
+				<xs:all>
+					<xs:element minOccurs="0" name="inputAttributes" type="wsi:inputAttributes" />
+					<xs:element minOccurs="0" name="sessionChangeRequest"
+						type="sessionchange:sessionChangeRequest" />
+				</xs:all>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="billdocumentReadResponse">
+		<wsdl:part element="sch3:billdocumentReadResponse" name="billdocumentReadResponse" />
+	</wsdl:message>
+	<wsdl:message name="billdocumentReadRequest">
+		<wsdl:part element="sch3:billdocumentReadRequest" name="billdocumentReadRequest" />
+	</wsdl:message>
+	<wsdl:portType name="BilldocumentReadService">
+		<wsdl:operation name="billdocumentRead">
+			<wsdl:input message="tns:billdocumentReadRequest" name="billdocumentReadRequest" />
+			<wsdl:output message="tns:billdocumentReadResponse" name="billdocumentReadResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BilldocumentReadServiceSoap11" type="tns:BilldocumentReadService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="billdocumentRead">
+			<soap:operation soapAction="" />
+			<wsdl:input name="billdocumentReadRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="billdocumentReadResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BilldocumentReadService">
+		<wsdl:port binding="tns:BilldocumentReadServiceSoap11" name="BilldocumentReadServiceSoap11">
+			<soap:address location="/services" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

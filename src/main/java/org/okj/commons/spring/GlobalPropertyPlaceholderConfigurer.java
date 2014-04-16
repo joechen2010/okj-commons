@@ -24,7 +24,6 @@ package org.okj.commons.spring;
 import java.util.Properties;
 
 import org.okj.commons.config.Globals;
-import org.okj.commons.exception.BaseException;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
 

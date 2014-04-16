@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -15,7 +16,6 @@
 	default-lazy-init="true" default-init-method="init">
 
 	<!-- location of the annotated controllers -->
-	<context:component-scan base-package="org.okj.commons.*" />
 
 	<mvc:annotation-driven />
 
@@ -24,20 +24,15 @@
 		<property name="basename" value="messages" />
 	</bean>
 	
-	<!-- Configure the multipart resolver
-    <bean id="multipartResolver" class="com.ericsson.sdp.upload.MonitoredCommonsMultipartResolver">
-      <property name="maxUploadSize" value="${sdp.max.upload.size}"/>
-    </bean>
-	 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">  
+        <property name="defaultLocale" value="${local.language}" />
+    </bean> 
+    
   	<bean id="jmxServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
     	<property name="locateExistingServerIfPossible" value="true"/>
   	</bean>
   	
 	<context:mbean-export registration="ignoreExisting" />
 	
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/jsp/" p:suffix=".jsp">
-	</bean>
 
 </beans>

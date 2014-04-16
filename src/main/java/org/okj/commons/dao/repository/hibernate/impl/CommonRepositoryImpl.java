@@ -122,7 +122,6 @@ public class CommonRepositoryImpl extends HibernateDaoSupport implements ICommon
 					try{
 						for(int i=0;i<sqlList.length ; i ++){
 							sql = sqlList[i]== null ? "" : sqlList[i].toString();
-							System.out.println("第"+i+"条sql:>>"+sql);
 							if(sql.equals(""))
 								continue ;
 							PreparedStatement ps = CurConn.prepareStatement(sql);
@@ -133,10 +132,6 @@ public class CommonRepositoryImpl extends HibernateDaoSupport implements ICommon
 						 session.flush();
 						 result = true;
 					}catch(Exception e){
-						System.out.println("执行["+sql+"]出错...");
-						System.out.println("执行回滚.....");
-						log.info("执行["+sql+"]出错...");
-						log.info("执行回滚.....");
 						CurConn.rollback();
 						result = false ; 
 						log.info(e.toString());

@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+
 public class SpringContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext = null;

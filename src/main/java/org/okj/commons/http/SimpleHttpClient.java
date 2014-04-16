@@ -360,4 +360,18 @@ public class SimpleHttpClient {
 
     }
 
+    public static void main(String[] args) throws IOException{
+        String s = "http://app.zhcw.com/wwwroot/zhcw/jsp/MediaArena2/leitai.jsp?issueId=new&utilType=1";
+        String p = "www-proxy.ericsson.se:8080";
+        DefaultHttpClient httpclient =  HttpClientUtils.createClient(10);
+        HttpClientUtils.setProxy(httpclient, p);
+        HttpGet method = new HttpGet(s);
+        try {
+            HttpResponse resp = httpclient.execute(method);
+            System.out.println(resp.getEntity().getContent().toString());
+        } catch (IOException e) {
+            // cancel the connection when the error happen
+            throw e;
+        }
+    }
 }

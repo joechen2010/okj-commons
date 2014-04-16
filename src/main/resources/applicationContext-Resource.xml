@@ -12,13 +12,13 @@
         <property name="ignoreResourceNotFound" value="true" />
         <property name="locations">
             <list>
-                <value>classpath*:/*.properties</value>
+                <value>classpath*:*.properties</value>
             </list>
         </property>
     </bean> 
 	
 	
-	<bean id="propertyConfigurer" class="com.joe.utilities.core.configuration.spring.GlobalPropertyPlaceholderConfigurer"/>
+	<bean id="propertyConfigurer" class="org.okj.commons.spring.GlobalPropertyPlaceholderConfigurer"/>
 	
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

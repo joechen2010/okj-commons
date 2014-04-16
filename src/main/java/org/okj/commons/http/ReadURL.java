@@ -134,6 +134,10 @@ public class ReadURL {
 	 {
 	  return s.replaceAll("<.*?>", "");
 	 }
-	 
+	
+	 public static void main(String[] args) throws IOException{
+	     String s = getOneHtml("http://app.zhcw.com/wwwroot/zhcw/jsp/MediaArena2/leitai.jsp?issueId=new&utilType=1");
+	     System.out.println(s);
+	 }
 
 }

@@ -62,7 +62,6 @@ public class Utils
     public final static Date LOWER_DATE_LIMIT;
 
     public final static Date UPPER_DATE_LIMIT;
-	private static final ThreadLocal<SAXBuilder> threadSaxBuilder = new ThreadLocal<SAXBuilder>();
 	private static final String TIMESTATE_START = "START";
 	private static final String TIMESTATE_END = "END";
 	
@@ -2013,5 +2012,64 @@ public class Utils
          return ""+((stopDate.getTimeInMillis()-startDate.getTimeInMillis()))/(1000*60);
     }
 
+    public static Date getFromDate( boolean invoiceSearchFromFirstDayOfMonth){
+        if(invoiceSearchFromFirstDayOfMonth){
+            Calendar calendar = Calendar.getInstance();  
+            int month = calendar.get(Calendar.MONTH);
+            calendar.set(Calendar.MONTH, month-6);
+            calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            return calendar.getTime();
+        }else{
+            Calendar calendar = Calendar.getInstance();
+            int today = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            if(calendar.getActualMaximum(Calendar.DAY_OF_MONTH) > today){
+                calendar.set(Calendar.MONTH, month-6);
+                calendar.set(Calendar.DAY_OF_MONTH, today);
+            }else{
+                calendar.set(Calendar.MONTH, month-6-1);
+                calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+            }
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            return calendar.getTime();
+        }        
+    }
+    
+    public static Date getToDate(boolean invoiceSearchFromFirstDayOfMonth){
+        if(invoiceSearchFromFirstDayOfMonth){
+            Calendar calendar = Calendar.getInstance();  
+            int month = calendar.get(Calendar.MONTH);
+            calendar.set(Calendar.MONTH, month-1);
+            calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));  
+            return toMidnight(calendar.getTime());
+        }else{
+            return new Date();
+        }
+    }
+    
+    public static Date toMidnight(Date date) {
+        if (date == null) {
+            return null;
+        }
+        Date returnDate = date;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        returnDate = calendar.getTime();
+        return returnDate;
+    }
 	
+    public static void main(String[] args){
+        System.out.println(getFromDate(false));
+    }
 }

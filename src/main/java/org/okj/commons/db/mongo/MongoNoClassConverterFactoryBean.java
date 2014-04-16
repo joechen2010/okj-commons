@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.convert.MongoTypeMapper;
  * 
  * 
  */
-public class MongoNoClassConverterFactoryBean implements FactoryBean<MappingMongoConverter> {
+public class MongoNoClassConverterFactoryBean implements FactoryBean {
 
     private MappingMongoConverter converter;
 

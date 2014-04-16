@@ -138,11 +138,10 @@ public class FtpUtils {
             success = ftp.login(getUsername(), getPassword());
             if (success) {
                 //����FTP��һЩ����
-                ftp.setFileType(FTPClient.BINARY_FILE_TYPE); //����������ļ�
-                ftp.enterLocalPassiveMode(); //����Ϊ����ģʽ
-                ftp.setConnectTimeout(2000); //��ʱʱ��
-                //ftp.setControlEncoding("GBK"); //�ַ�
-
+                ftp.setFileType(FTPClient.BINARY_FILE_TYPE);  
+                ftp.enterLocalPassiveMode();  
+                ftp.setConnectTimeout(2000);  
+                //ftp.setControlEncoding("GBK");  
                 if (LOGGER.isInfoEnabled()) {
                     LOGGER.info("[FTPHelper] ��¼FTP�������ɹ���success=" + success + ", username="
                                 + getUsername());
